@@ -1,4 +1,4 @@
-stack = [['N','Z'],['M','C','D'],['P']]
+stack = [['Z','N'],['M','C','D'],['P']]
 # for i in range(len(stack)):
 #     print(i+1 ,":",stack[i],end="\n")
 
@@ -19,9 +19,8 @@ def make_two_array(lines):
 
 def mov(ele,listfrom,listto):
   for i in range(ele):
-    print(listfrom,listto)
-    temp = listfrom.top()
-    listto.push(temp)
+    temp = listfrom[-1]
+    listto.append(temp)
     listfrom.pop()
   return 
 
@@ -30,9 +29,13 @@ def move_stack(list1):
     ele = int(list1[i][0])
     listfrom = int(list1[i][1])
     listto = int(list1[i][2])
-    mov(ele,stack[listfrom],stack[listto])    
+    mov(ele,stack[listfrom-1],stack[listto-1])
   return 1
 
 lines = read_file('day5_5.txt')
 list1 = make_two_array(lines)
 move_stack(list1)
+l = []
+for i in range(len(stack)):
+  l.append(stack[i][-1])
+print(l)

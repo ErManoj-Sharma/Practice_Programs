@@ -1,8 +1,8 @@
 stack = [['B','W','N'],['L','Z','S','P','T','D','M','B'],['Q','H','Z','W','R'],['W','D','V','J','Z','R'],
          ['S','H','M','B'],['L','G','N','J','H','V','P','B'],['J','Q','Z','F','H','D','L','S'],
          ['W','S','F','J','G','Q','B'],['Z','W','M','S','C','D','J']]
-for i in range(len(stack)):
-    print(i+1 ,":",stack[i],end="\n")
+# for i in range(len(stack)):
+#     print(i+1 ,":",stack[i],end="\n")
 
 
 
@@ -12,25 +12,32 @@ def read_file(filename):
   return lines
 
 def make_two_array(lines):
-  list1= []
+  list1 = []
   for line in lines:
     line = line.strip()
     line = line.split(' ')
-    list1.append([line[1],line[1],line[5]])
+    list1.append([line[1],line[3],line[5]])
   return list1
+
+def mov(ele,listfrom,listto):
+  for i in range(ele):
+    temp = listfrom[-1]
+    listto.append(temp)
+    listfrom.pop()
+  return 
+
+def move_stack(list1):
+  for i in range(len(list1)):
+    ele = int(list1[i][0])
+    listfrom = int(list1[i][1])
+    listto = int(list1[i][2])
+    mov(ele,stack[listfrom-1],stack[listto-1])
+  return 1
 
 lines = read_file('day5.txt')
 list1 = make_two_array(lines)
-print(list1)
-
-
-
-
-
-# str = 'move 4 from 7 to 2'
-# list = []
-# print(str.strip())
-# print(str.split(' '))
-# s = str.split(' ')
-# list.append([s[1],s[1],s[5]])
-# print(list)
+move_stack(list1)
+l = []
+for i in range(len(stack)):
+  l.append(stack[i][-1])
+print(l)
