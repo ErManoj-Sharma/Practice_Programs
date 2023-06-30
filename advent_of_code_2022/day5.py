@@ -26,12 +26,24 @@ def mov(ele,listfrom,listto):
     listfrom.pop()
   return 
 
+def mov2(ele,listfrom,listto):
+  templist = []
+  for i in range(ele):
+    temp = listfrom[-1]
+    templist.append(temp)
+    listfrom.pop()
+  listto.extend(templist[::-1])
+  return 
+
 def move_stack(list1):
   for i in range(len(list1)):
     ele = int(list1[i][0])
     listfrom = int(list1[i][1])
     listto = int(list1[i][2])
-    mov(ele,stack[listfrom-1],stack[listto-1])
+    if ele == 1:
+      mov(ele,stack[listfrom-1],stack[listto-1])
+    else:
+      mov2(ele,stack[listfrom-1],stack[listto-1])
   return 1
 
 lines = read_file('day5.txt')
