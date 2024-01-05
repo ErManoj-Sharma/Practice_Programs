@@ -13,6 +13,12 @@ def read_file():
     f.close()
     return lines
 
+def read_hit_point_file():
+    f = open("hit_points.txt", "r")
+    lines = f.readlines()
+    f.close()
+    return lines
+
 def make_dict(line):
     global my_dict
     my_dict[line[0]] = {
@@ -41,6 +47,7 @@ def check_win_lose(my_hit_point,boss_hit_point, cost,p):
     global game_result
     if my_hit_point <= 0:
         game_over = True 
+        game_resultp2.append([cost,p])
         return True
     if boss_hit_point <= 0:
         game_over  = True
@@ -48,7 +55,7 @@ def check_win_lose(my_hit_point,boss_hit_point, cost,p):
         return True
 
 lines = read_file()
-
+data = read_hit_point_file()
 my_dict = {}
 for line in lines:
     line = clean_list(line.split("  "))
@@ -56,12 +63,13 @@ for line in lines:
         make_dict(line)
 all_permutations = list(product(l1, l2, l3, l4))
 game_result = []
+game_resultp2 = []
 for p in all_permutations:
-    boss_hit_point = 103
-    boss_damage = 9
-    boss_armor = 2
-
+    boss_hit_point = int(data[0].split(':')[1].strip())
+    boss_damage = int(data[1].split(':')[1].strip())
+    boss_armor = int(data[2].split(':')[1].strip())
     my_hit_point = 100
+
     cost= 0
     damage =0
     armor = 0
@@ -82,11 +90,21 @@ for p in all_permutations:
         status = check_win_lose(my_hit_point,boss_hit_point, my_cost,p)
         if status:
             break
-m = 1000
+# Part 1
+m = float('inf')
 a = ''
 for game in game_result:
     if game[0] < m:
         m = game[0]
         a = game[1]
-print(m,a)
+print("Part 1",m,a)
+# Part 2
 
+m = float('-inf')
+a = ''
+for game in game_resultp2:
+    if game[0] > m:
+        m = game[0]
+        a = game[1]
+print("Part 2",m,a)
+# Answer is 208 but correct answer is second last element ?
