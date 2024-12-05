@@ -19,6 +19,7 @@ def get_north(x,y):
     if string == "XMAS":
         return True
     return False
+
 def get_south(x,y):
     limit = len(line)-1
     if x > limit-3:
@@ -27,6 +28,7 @@ def get_south(x,y):
     if string == "XMAS":
         return True
     return False
+
 def get_west(x,y):
     limit = 3
     if y < limit:
@@ -35,6 +37,7 @@ def get_west(x,y):
     if string == "XMAS":
         return True
     return False
+
 def get_east(x,y):
     limit = len(line)-1
     if y > limit-3:
@@ -102,11 +105,11 @@ for i in range(0,len(lines)):
                 count = count + 1
             if get_south_east(i,j):
                 count = count + 1
-#  Part 1
 print(count)
 
 # Part 2
 cordinate_list=[]
+
 def p2_get_north_west(x,y):
     global cordinate_list
     limit = 2
@@ -160,6 +163,7 @@ for i in range(0,len(lines)):
             p2_get_north_east(i,j)
             p2_get_south_west(i,j)
             p2_get_south_east(i,j)
-
+print(cordinate_list)
 result = [item for item in cordinate_list if cordinate_list.count(item) > 1]
+print(result)
 print(len(result)/2)
