@@ -4,16 +4,26 @@ def read_file():
     f.close()
     return list(line.replace("\n",'') for line in lines)
 
-lines= read_file()
+def print_2darray():
+    global array_2d
+    for i in range(0,len(array_2d)):
+        for j in range(0,len(array_2d)):
+            print(array_2d[i][j], end=" ")
+        print()
 
-array_2d=[]
-
-for line in lines:
-    array_2d.append(list(line.replace("\n",'')))
-
-row = len(array_2d)-1
-col = len(array_2d)-1
-
+def get_start_point():
+    global array_2d
+    for i in range(0,len(array_2d)):
+        for j in range(0,len(array_2d)):
+            if array_2d[i][j] == "^":
+                return [i,j]
+            if array_2d[i][j] == ">":
+                return [i,j]
+            if array_2d[i][j] == "<":
+                return [i,j]
+            if array_2d[i][j] == "v":
+                return [i,j]
+            
 def movement(x,y):
     global array_2d
     global row
@@ -71,11 +81,12 @@ def movement(x,y):
             array_2d[x][y+1] = "^"
             x,y = get_start_point()
             movement(x,y)
-        pass
+
     if array_2d[x][y]=="v":
         p,q = x+1,y
         print("in v")
         print(p,q)
+        print("row",row)
         while array_2d[p][q] =="." or array_2d[p][q] =="X":
             array_2d[p-1][y]="X"
             array_2d[p][q]="v"
@@ -85,41 +96,33 @@ def movement(x,y):
                 array_2d[p-1][q] = "X"
                 array_2d[p][q]="X"
                 break
+
         if array_2d[x][y] == "#":
             array_2d[x-1][y] = "<"
             x,y = get_start_point()
             movement(x,y)
-          
-def print_2darray():
-    global array_2d
-    for i in range(0,len(array_2d)):
-        for j in range(0,len(array_2d)):
-            print(array_2d[i][j], end="")
-        print()
 
-def get_start_point():
-    global array_2d
-    for i in range(0,len(array_2d)):
-        for j in range(0,len(array_2d)):
-            if array_2d[i][j] == "^":
-                return [i,j]
-            if array_2d[i][j] == ">":
-                return [i,j]
-            if array_2d[i][j] == "<":
-                return [i,j]
-            if array_2d[i][j] == "v":
-                return [i,j]
-        
+            
+lines= read_file()
+array_2d=[]
+
+for line in lines:
+    array_2d.append(list(line.replace("\n",'')))
+
+row = len(array_2d)-1
+col = len(array_2d)-1
+
+
 start_point= get_start_point()
 print("before movement")
 movement(start_point[0],start_point[1])
 print("after movement")
 print()
-print()
+print_2darray()
+
 count = 0
 for i in range(0, len(array_2d)):
     for j in range(0,len(array_2d)):
         if array_2d[i][j]=="X":
             count = count+1
 print(count)
-
